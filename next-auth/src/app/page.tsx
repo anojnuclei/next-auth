@@ -1,23 +1,8 @@
-import { Title, Text, Anchor } from "@mantine/core";
-import { Button } from "@mantine/core";
-export default function HomePage() {
-  return (
-    <>
-      <Title ta="center" mt={100}>
-        Welcome to{" "}
-        <Text
-          inherit
-          variant="gradient"
-          component="span"
-          gradient={{ from: "pink", to: "yellow" }}
-        >
-          Mantine
-        </Text>
-      </Title>
-      <Title ta="center" mt={100}>
-        Welcome to <Text className="text-red-600">Mantine</Text>
-      </Title>
-      <Button className="bg-red-500">Hello World!</Button>
-    </>
-  );
+import { options } from "./api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
+
+export default async function HomePage() {
+  const session = await getServerSession(options);
+
+  return <>{session ? `hello ${session.user?.name}` : "You shall not pass!"}</>;
 }
